@@ -1,0 +1,134 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    background-color: #FAF8F5;
+    color: #181A20;
+    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+  }
+}
+
+/* Animations for floating elements */
+@keyframes floatSlow {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-16px) rotate(4deg);
+  }
+}
+
+@keyframes floatReverse {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(14px) rotate(-3deg);
+  }
+}
+
+@keyframes pulseGlow {
+  0%, 100% {
+    opacity: 0.45;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.75;
+    transform: scale(1.08);
+  }
+}
+
+/* Floating orb drift & sparkle/blink animations */
+@keyframes orbFloatA {
+  0%, 100% {
+    transform: translate(0px, 0px) scale(1);
+  }
+  33% {
+    transform: translate(14px, -24px) scale(1.08);
+  }
+  66% {
+    transform: translate(-10px, -12px) scale(0.95);
+  }
+}
+
+@keyframes orbFloatB {
+  0%, 100% {
+    transform: translate(0px, 0px) scale(1);
+  }
+  40% {
+    transform: translate(-18px, 20px) scale(0.92);
+  }
+  80% {
+    transform: translate(12px, -15px) scale(1.06);
+  }
+}
+
+@keyframes orbBlink {
+  0%, 100% {
+    opacity: 0.85;
+    filter: drop-shadow(0 0 6px rgba(255, 32, 43, 0.3));
+  }
+  50% {
+    opacity: 0.35;
+    filter: drop-shadow(0 0 0px transparent);
+  }
+}
+
+@keyframes orbBlinkCyan {
+  0%, 100% {
+    opacity: 0.9;
+    filter: drop-shadow(0 0 8px rgba(160, 232, 232, 0.5));
+  }
+  50% {
+    opacity: 0.4;
+    filter: drop-shadow(0 0 0px transparent);
+  }
+}
+
+@keyframes orbBlinkYellow {
+  0%, 100% {
+    opacity: 0.95;
+    filter: drop-shadow(0 0 8px rgba(255, 221, 99, 0.6));
+  }
+  50% {
+    opacity: 0.45;
+    filter: drop-shadow(0 0 0px transparent);
+  }
+}
+
+.animate-float-slow {
+  animation: floatSlow 7s ease-in-out infinite;
+}
+
+.animate-float-reverse {
+  animation: floatReverse 6s ease-in-out infinite;
+}
+
+.animate-pulse-glow {
+  animation: pulseGlow 8s ease-in-out infinite;
+}
+
+/* Custom Orb Classes */
+.animate-orb-a {
+  animation: orbFloatA 6s ease-in-out infinite, orbBlink 4s ease-in-out infinite;
+}
+
+.animate-orb-b {
+  animation: orbFloatB 8s ease-in-out infinite, orbBlinkCyan 5s ease-in-out infinite;
+}
+
+.animate-orb-c {
+  animation: orbFloatA 7s ease-in-out infinite, orbBlinkYellow 4.5s ease-in-out infinite;
+}
+
+/* Modern Gradient Text & Borders */
+.gradient-text-cool {
+  background: linear-gradient(135deg, #FF202B 0%, #FFA242 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
