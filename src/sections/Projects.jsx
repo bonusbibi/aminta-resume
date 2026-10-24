@@ -4,7 +4,6 @@ import {
   ArrowUpRight, 
   Trophy, 
   FolderArchive, 
-  Layers, 
   X, 
   CheckCircle2, 
   ChevronRight,
@@ -13,13 +12,15 @@ import {
   Image as ImageIcon
 } from 'lucide-react';
 import { GitHubIcon } from '../components/GitHubIcon';
+import { useLanguage } from '../context/LanguageContext';
 
 const Projects = () => {
+  const { t } = useLanguage();
   const [activeFilter, setActiveFilter] = useState('All');
   const [selectedProject, setSelectedProject] = useState(null);
   const [activeGalleryIndex, setActiveGalleryIndex] = useState(0);
 
-  const filters = ['All', 'Featured', 'Web & System', 'Mobile & AI', 'Tools & Games'];
+  const filterKeys = ['All', 'Featured', 'Web & System', 'Mobile & AI', 'Tools & Games'];
 
   const filteredProjects = projectsData.filter((project) => {
     if (activeFilter === 'All') return true;
@@ -61,30 +62,30 @@ const Projects = () => {
         <div>
           <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-md bg-[#FFA242]/10 text-[#FFA242] text-xs font-mono font-bold uppercase tracking-wider mb-2">
             <Sparkles size={13} />
-            <span>Portfolio Showcase</span>
+            <span>{t.projects.tag}</span>
           </div>
           <h2 className="text-3xl sm:text-4xl font-display font-extrabold tracking-tight text-[#181A20]">
-            Selected Projects
+            {t.projects.title}
           </h2>
         </div>
         <p className="text-sm text-[#5E6272] max-w-md font-medium">
-          A showcase of 8 applications, academic systems, and competition entries developed across multiple frameworks.
+          {t.projects.subtitle}
         </p>
       </div>
 
       {/* Filter Tabs */}
       <div className="flex flex-wrap items-center gap-2 mb-10 pb-2">
-        {filters.map((filter) => (
+        {filterKeys.map((key) => (
           <button
-            key={filter}
-            onClick={() => setActiveFilter(filter)}
+            key={key}
+            onClick={() => setActiveFilter(key)}
             className={`px-4 py-2 rounded-xl text-xs font-bold transition-all duration-300 ${
-              activeFilter === filter
+              activeFilter === key
                 ? 'bg-gradient-to-r from-[#FF202B] to-[#FFA242] text-white shadow-glow-red scale-105'
                 : 'bg-white text-[#5E6272] hover:text-[#181A20] hover:bg-[#FAF8F5] border-2 border-[#E8E6DC]'
             }`}
           >
-            {filter}
+            {t.projects.filters[key] || key}
           </button>
         ))}
       </div>
@@ -118,12 +119,12 @@ const Projects = () => {
                   {project.featured && (
                     <span className="inline-flex items-center gap-1 text-[11px] font-bold text-white bg-gradient-to-r from-[#FF202B] to-[#FFA242] px-2.5 py-0.5 rounded-full shadow-sm animate-pulse">
                       <Flame size={12} />
-                      Featured
+                      {t.projects.featuredBadge}
                     </span>
                   )}
                 </div>
 
-                {/* Big Card Image (ภาพใหญ่ 1 ภาพ) */}
+                {/* Big Card Image */}
                 {project.coverImage ? (
                   <div className="w-full aspect-[16/9] rounded-2xl overflow-hidden mb-4 border-2 border-[#E8E6DC] bg-[#FAF8F5] relative group/img shadow-sm">
                     <img 
@@ -131,9 +132,8 @@ const Projects = () => {
                       alt={project.title} 
                       className="w-full h-full object-cover object-top transition-transform duration-500 group-hover/img:scale-105"
                       onError={(e) => {
-                        // If file not placed yet, gracefully hide or fallback
                         e.target.style.display = 'none';
-                        e.target.nextSibling.style.display = 'flex';
+                        if (e.target.nextSibling) e.target.nextSibling.style.display = 'flex';
                       }}
                     />
                     <div style={{ display: 'none' }} className="w-full h-full flex-col items-center justify-center p-4 text-center bg-gradient-to-br from-[#FAF8F5] to-white">
@@ -147,14 +147,12 @@ const Projects = () => {
                     {project.gallery && project.gallery.length > 1 && (
                       <div className="absolute bottom-2 right-2 bg-[#181A20]/80 backdrop-blur-md text-white text-[10px] font-mono font-bold px-2 py-0.5 rounded-md flex items-center gap-1">
                         <ImageIcon size={11} />
-                        +{project.gallery.length} photos
+                        +{project.gallery.length} {t.projects.photosCount}
                       </div>
                     )}
                   </div>
                 ) : (
-                  /* Standby / Placeholder Cover with Vivid Project Accent */
                   <div className="w-full aspect-[16/9] rounded-2xl mb-4 border-2 border-[#E8E6DC] group-hover:border-[#FFA242] bg-gradient-to-br from-[#FAF8F5] via-white to-[#FAF8F5] p-4 flex flex-col justify-between transition-all duration-300 relative overflow-hidden group/placeholder shadow-sm">
-                    {/* Background subtle watermark icon */}
                     <div className="absolute -right-4 -bottom-4 text-[#E8E6DC]/40 group-hover:text-[#FFA242]/20 transition-colors pointer-events-none">
                       <ImageIcon size={96} />
                     </div>
@@ -227,7 +225,7 @@ const Projects = () => {
                 </div>
 
                 <div className="flex items-center justify-between text-xs text-[#181A20] font-bold group-hover:text-[#FF202B] transition-colors">
-                  <span>View Details & Screenshots</span>
+                  <span>{t.projects.viewDetails}</span>
                   <ChevronRight size={15} className="group-hover:translate-x-1 transition-transform" />
                 </div>
               </div>
@@ -236,7 +234,7 @@ const Projects = () => {
         })}
       </div>
 
-      {/* Detailed Modal Window with Interactive Gallery (ภาพย่อยๆ กดดูได้) */}
+      {/* Detailed Modal Window with Interactive Gallery */}
       {selectedProject && (
         <div 
           className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#181A20]/65 backdrop-blur-md animate-fadeIn"
@@ -258,7 +256,7 @@ const Projects = () => {
                   </span>
                   {selectedProject.featured && (
                     <span className="text-xs font-bold text-white bg-gradient-to-r from-[#FF202B] to-[#FFA242] px-2.5 py-1 rounded-full shadow-sm">
-                      Featured Work
+                      {t.projects.featuredBadge}
                     </span>
                   )}
                 </div>
@@ -290,10 +288,12 @@ const Projects = () => {
                   <div className="flex items-center justify-between">
                     <h4 className="text-xs font-mono uppercase tracking-wider text-[#FF202B] font-bold flex items-center gap-1.5">
                       <ImageIcon size={14} />
-                      <span>Project Screenshots & UI Gallery</span>
+                      <span>{t.projects.modal.galleryTitle}</span>
                     </h4>
                     <span className="text-xs font-mono text-[#5E6272]">
-                      Photo {activeGalleryIndex + 1} of {selectedProject.gallery.length}
+                      {t.projects.modal.photoCount
+                        .replace('{current}', activeGalleryIndex + 1)
+                        .replace('{total}', selectedProject.gallery.length)}
                     </span>
                   </div>
 
@@ -306,7 +306,7 @@ const Projects = () => {
                     />
                   </div>
 
-                  {/* Thumbnails Row (ภาพย่อยๆ ให้คลิกเลือก) */}
+                  {/* Thumbnails Row */}
                   <div className="flex items-center gap-2.5 overflow-x-auto pb-1">
                     {selectedProject.gallery.map((imgUrl, idx) => (
                       <button
@@ -332,7 +332,7 @@ const Projects = () => {
               {/* Description */}
               <div>
                 <h4 className="text-xs font-mono uppercase tracking-wider text-[#FF202B] font-bold mb-2">
-                  Project Overview
+                  {t.projects.modal.overview}
                 </h4>
                 <p className="text-sm text-[#181A20] leading-relaxed">
                   {selectedProject.description}
@@ -355,7 +355,7 @@ const Projects = () => {
               {/* Technologies */}
               <div>
                 <h4 className="text-xs font-mono uppercase tracking-wider text-[#FF202B] font-bold mb-2">
-                  Tech Stack & APIs
+                  {t.projects.modal.techStack}
                 </h4>
                 <div className="flex flex-wrap gap-2">
                   {selectedProject.technologies.map((tech, i) => (
@@ -372,7 +372,7 @@ const Projects = () => {
               {/* Key Implementations / What I Learned */}
               <div>
                 <h4 className="text-xs font-mono uppercase tracking-wider text-[#FF202B] font-bold mb-3">
-                  Key Implementations & Contributions
+                  {t.projects.modal.contributions}
                 </h4>
                 <div className="space-y-2.5">
                   {selectedProject.learned.map((point, i) => (
@@ -403,7 +403,7 @@ const Projects = () => {
                 onClick={() => setSelectedProject(null)}
                 className="px-6 py-2.5 rounded-xl bg-[#181A20] hover:bg-[#FF202B] text-white text-xs font-bold transition-all shadow-sm"
               >
-                Close Window
+                {t.projects.modal.closeBtn}
               </button>
             </div>
 

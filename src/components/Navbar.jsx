@@ -4,13 +4,14 @@ import {
   Menu, 
   X, 
   ArrowUpRight, 
-  Sparkles,
-  Terminal
+  Languages
 } from 'lucide-react';
+import { useLanguage } from '../context/LanguageContext';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const { lang, toggleLanguage, t } = useLanguage();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -21,11 +22,11 @@ const Navbar = () => {
   }, []);
 
   const navLinks = [
-    { name: 'About', href: '#about' },
-    { name: 'Projects', href: '#projects' },
-    { name: 'Skills', href: '#skills' },
-    { name: 'Experience', href: '#experience' },
-    { name: 'Contact', href: '#contact' },
+    { name: t.nav.about, href: '#about' },
+    { name: t.nav.projects, href: '#projects' },
+    { name: t.nav.skills, href: '#skills' },
+    { name: t.nav.experience, href: '#experience' },
+    { name: t.nav.contact, href: '#contact' },
   ];
 
   return (
@@ -46,7 +47,7 @@ const Navbar = () => {
               Aminta Rungruang
             </span>
             <span className="text-[11px] font-mono font-medium text-[#5E6272] -mt-1">
-              CS Undergraduate
+              {t.nav.role}
             </span>
           </div>
         </a>
@@ -64,8 +65,22 @@ const Navbar = () => {
           ))}
         </nav>
 
-        {/* CTA Button */}
-        <div className="hidden md:flex items-center gap-3">
+        {/* Right Action: Language Switcher & Resume */}
+        <div className="hidden md:flex items-center gap-2.5">
+          {/* Language Switcher Pill */}
+          <button
+            onClick={toggleLanguage}
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-[#E8E6DC] bg-white hover:bg-[#F6F5EE] text-xs font-bold text-[#181A20] transition-all shadow-sm hover:border-[#FFA242]"
+            title={lang === 'th' ? "Switch to English" : "เปลี่ยนเป็นภาษาไทย"}
+            aria-label="Toggle Language"
+          >
+            <Languages size={14} className="text-[#FF202B]" />
+            <span className={lang === 'th' ? 'text-[#FF202B]' : 'text-[#5E6272]'}>TH</span>
+            <span className="text-[#E8E6DC]">/</span>
+            <span className={lang === 'en' ? 'text-[#FF202B]' : 'text-[#5E6272]'}>EN</span>
+          </button>
+
+          {/* CTA Resume Button */}
           <a
             href="/resume/Aminta_Rungruang_Resume.pdf"
             target="_blank"
@@ -73,19 +88,29 @@ const Navbar = () => {
             className="inline-flex items-center gap-1.5 bg-[#181A20] hover:bg-[#FF202B] text-white text-xs font-semibold px-4 py-2 rounded-lg transition-all duration-200 shadow-sm hover:shadow"
           >
             <FileText size={14} />
-            <span>Resume</span>
+            <span>{t.nav.resume}</span>
             <ArrowUpRight size={13} className="opacity-70" />
           </a>
         </div>
 
-        {/* Mobile Hamburger Toggle */}
-        <button
-          onClick={() => setIsOpen(!isOpen)}
-          aria-label="Toggle Navigation"
-          className="md:hidden p-2 text-[#181A20] hover:bg-[#F6F5EE] rounded-lg transition-colors border border-[#E8E6DC]"
-        >
-          {isOpen ? <X size={20} /> : <Menu size={20} />}
-        </button>
+        {/* Mobile View: Lang button + Hamburger */}
+        <div className="flex md:hidden items-center gap-2">
+          <button
+            onClick={toggleLanguage}
+            className="px-2.5 py-1.5 rounded-lg border border-[#E8E6DC] bg-white text-xs font-bold text-[#181A20]"
+            aria-label="Toggle Language"
+          >
+            {lang === 'th' ? '🇹🇭 TH' : '🇬🇧 EN'}
+          </button>
+          
+          <button
+            onClick={() => setIsOpen(!isOpen)}
+            aria-label="Toggle Navigation"
+            className="p-2 text-[#181A20] hover:bg-[#F6F5EE] rounded-lg transition-colors border border-[#E8E6DC]"
+          >
+            {isOpen ? <X size={20} /> : <Menu size={20} />}
+          </button>
+        </div>
       </div>
 
       {/* Mobile Drawer */}
@@ -102,7 +127,7 @@ const Navbar = () => {
                 {link.name}
               </a>
             ))}
-            <div className="pt-3 mt-2 border-t border-[#E8E6DC]">
+            <div className="pt-3 mt-2 border-t border-[#E8E6DC] flex flex-col gap-2">
               <a
                 href="/resume/Aminta_Rungruang_Resume.pdf"
                 target="_blank"
@@ -111,7 +136,7 @@ const Navbar = () => {
                 className="w-full inline-flex items-center justify-center gap-2 bg-[#FF202B] text-white text-sm font-semibold py-2.5 rounded-lg shadow-sm"
               >
                 <FileText size={15} />
-                <span>View Full Resume</span>
+                <span>{t.nav.resume}</span>
                 <ArrowUpRight size={14} />
               </a>
             </div>

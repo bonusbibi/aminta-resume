@@ -1,8 +1,11 @@
 import React from 'react';
-import { ArrowUp, Mail, FileText } from 'lucide-react';
+import { ArrowUp } from 'lucide-react';
 import { GitHubIcon } from './GitHubIcon';
+import { useLanguage } from '../context/LanguageContext';
 
 const Footer = () => {
+  const { t } = useLanguage();
+
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
@@ -18,10 +21,10 @@ const Footer = () => {
           </div>
           <div>
             <div className="text-xs font-semibold text-[#181A20]">
-              Aminta Rungruang © 2026
+              {t.footer.rights}
             </div>
             <div className="text-[11px] text-[#5E6272]">
-              Computer Science Undergraduate • Phetchaburi Rajabhat University
+              {t.footer.subtitle}
             </div>
           </div>
         </div>
@@ -56,8 +59,8 @@ const Footer = () => {
 
           <button
             onClick={scrollToTop}
-            aria-label="Back to top"
-            className="p-2 rounded-lg bg-[#F6F5EE] hover:bg-[#181A20] hover:text-white transition-colors ml-2"
+            aria-label={t.footer.backToTop}
+            className="p-2 rounded-lg bg-[#F6F5EE] hover:bg-[#181A20] hover:text-white transition-colors ml-2 flex items-center gap-1"
           >
             <ArrowUp size={14} />
           </button>

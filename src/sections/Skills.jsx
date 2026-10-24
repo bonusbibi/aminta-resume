@@ -7,11 +7,13 @@ import {
   Database, 
   Wrench, 
   Users, 
-  Sparkles,
-  ArrowRight
+  Sparkles
 } from 'lucide-react';
+import { useLanguage } from '../context/LanguageContext';
 
 const Skills = () => {
+  const { t } = useLanguage();
+
   const getCategoryConfig = (category) => {
     switch (category) {
       case "Programming Languages":
@@ -64,14 +66,14 @@ const Skills = () => {
         <div>
           <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-md bg-[#87FEBC]/20 text-[#181A20] text-xs font-mono font-bold uppercase tracking-wider mb-2">
             <Sparkles size={13} className="text-[#FF202B]" />
-            <span>Capabilities & Stack</span>
+            <span>{t.skills.tag}</span>
           </div>
           <h2 className="text-3xl sm:text-4xl font-display font-extrabold tracking-tight text-[#181A20]">
-            Technical Skills
+            {t.skills.title}
           </h2>
         </div>
         <p className="text-sm text-[#5E6272] max-w-md font-medium">
-          Structured competencies across modern programming languages, cloud stacks, and development workflows.
+          {t.skills.subtitle}
         </p>
       </div>
 
@@ -79,6 +81,7 @@ const Skills = () => {
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
         {skillsData.map((group, idx) => {
           const config = getCategoryConfig(group.category);
+          const categoryTitle = t.skills.categories[group.category] || group.category;
 
           return (
             <div 
@@ -93,10 +96,10 @@ const Skills = () => {
                   </div>
                   <div>
                     <h3 className="font-display font-bold text-base text-[#181A20]">
-                      {group.category}
+                      {categoryTitle}
                     </h3>
                     <span className="text-[11px] font-mono text-[#5E6272] font-semibold">
-                      {group.items.length} competencies
+                      {group.items.length} {t.skills.competencies}
                     </span>
                   </div>
                 </div>
@@ -123,13 +126,13 @@ const Skills = () => {
         <div className="space-y-1">
           <div className="inline-flex items-center gap-2 text-xs font-mono font-bold uppercase tracking-wider text-[#FF202B]">
             <Sparkles size={14} />
-            <span>Active Exploration</span>
+            <span>{t.skills.explorationTag}</span>
           </div>
           <h3 className="text-xl font-display font-extrabold text-[#181A20]">
-            Continuous Growth & Emerging Tech
+            {t.skills.explorationTitle}
           </h3>
           <p className="text-xs sm:text-sm text-[#5E6272] max-w-xl font-medium">
-            Actively expanding into backend distributed architecture, complex data flows, and automated machine learning inferencing.
+            {t.skills.explorationDesc}
           </p>
         </div>
 

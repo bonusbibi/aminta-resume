@@ -1,49 +1,30 @@
 import React from 'react';
 import { 
   GraduationCap, 
-  Target, 
-  Compass, 
-  Layers, 
-  Terminal, 
   Sparkles, 
-  CheckCircle2,
-  Calendar,
-  Code2,
-  Smartphone,
-  Cpu,
-  Database
+  Calendar, 
+  Code2, 
+  Smartphone, 
+  Cpu, 
+  Database 
 } from 'lucide-react';
+import { useLanguage } from '../context/LanguageContext';
 
 const About = () => {
-  const highlights = [
-    {
-      title: "Full-Stack Web Development",
-      desc: "Architecting responsive, modern web applications with TypeScript, JavaScript, Node.js, and relational database systems.",
-      accent: "from-[#FF202B]/10 to-[#FFA242]/10 border-[#FF202B]/30 hover:border-[#FF202B]",
-      dot: "bg-[#FF202B]",
-      icon: <Code2 size={18} className="text-[#FF202B]" />
-    },
-    {
-      title: "Cross-Platform Mobile Apps",
-      desc: "Developing client applications using Dart & Flutter with REST API integrations and Firebase real-time sync.",
-      accent: "from-[#FFA242]/10 to-[#FFDD63]/10 border-[#FFA242]/30 hover:border-[#FFA242]",
-      dot: "bg-[#FFA242]",
-      icon: <Smartphone size={18} className="text-[#FFA242]" />
-    },
-    {
-      title: "Applied Computer Vision & AI",
-      desc: "Integrating Roboflow vision models for real-time camera overlays, sensory guidance, and automated health checks.",
-      accent: "from-[#A0E8E8]/15 to-[#87FEBC]/15 border-[#A0E8E8]/40 hover:border-[#A0E8E8]",
-      dot: "bg-[#A0E8E8]",
-      icon: <Cpu size={18} className="text-[#181A20]" />
-    },
-    {
-      title: "Relational & Cloud Databases",
-      desc: "Designing schemas and managing transactional queries across PostgreSQL, MySQL, Supabase, and Firestore.",
-      accent: "from-[#87FEBC]/15 to-white border-[#87FEBC]/40 hover:border-[#87FEBC]",
-      dot: "bg-[#87FEBC]",
-      icon: <Database size={18} className="text-[#181A20]" />
-    }
+  const { t } = useLanguage();
+
+  const domainIcons = [
+    <Code2 size={18} className="text-[#FF202B]" />,
+    <Smartphone size={18} className="text-[#FFA242]" />,
+    <Cpu size={18} className="text-[#181A20]" />,
+    <Database size={18} className="text-[#181A20]" />
+  ];
+
+  const domainAccents = [
+    "from-[#FF202B]/10 to-[#FFA242]/10 border-[#FF202B]/30 hover:border-[#FF202B]",
+    "from-[#FFA242]/10 to-[#FFDD63]/10 border-[#FFA242]/30 hover:border-[#FFA242]",
+    "from-[#A0E8E8]/15 to-[#87FEBC]/15 border-[#A0E8E8]/40 hover:border-[#A0E8E8]",
+    "from-[#87FEBC]/15 to-white border-[#87FEBC]/40 hover:border-[#87FEBC]"
   ];
 
   return (
@@ -57,14 +38,14 @@ const About = () => {
         <div>
           <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-md bg-[#FF202B]/10 text-[#FF202B] text-xs font-mono font-bold uppercase tracking-wider mb-2">
             <Sparkles size={13} />
-            <span>Profile & Background</span>
+            <span>{t.about.tag}</span>
           </div>
           <h2 className="text-3xl sm:text-4xl font-display font-extrabold tracking-tight text-[#181A20]">
-            About Me
+            {t.about.title}
           </h2>
         </div>
         <p className="text-sm text-[#5E6272] max-w-md font-medium">
-          A dedicated undergraduate combining theoretical computer science with practical software engineering.
+          {t.about.leadDesc}
         </p>
       </div>
 
@@ -79,15 +60,15 @@ const About = () => {
             <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-[#FF202B] via-[#FFA242] to-[#87FEBC]"></div>
 
             <h3 className="text-xl sm:text-2xl font-display font-bold text-[#181A20]">
-              Turning curiosity into solid, reliable software.
+              {t.about.heading}
             </h3>
             
             <p className="text-[#5E6272] leading-relaxed text-sm sm:text-base">
-              I am a Computer Science undergraduate with hands-on experience in web and mobile application development, backend technologies, and database management through university coursework and practical projects.
+              {t.about.p1}
             </p>
 
             <p className="text-[#5E6272] leading-relaxed text-sm sm:text-base">
-              Currently, I am actively exploring opportunities in <strong className="text-[#181A20]">Web Development, Backend Development, Data, and Software Development</strong>. I am eager to apply my technical knowledge, learn from experienced engineering teams, and contribute to impactful real-world projects.
+              {t.about.p2}
             </p>
 
             {/* University & Degree Box */}
@@ -99,14 +80,14 @@ const About = () => {
                 <div className="flex-1">
                   <div className="flex flex-wrap items-center justify-between gap-2">
                     <h4 className="text-sm font-bold text-[#181A20]">
-                      Bachelor of Science in Computer Science
+                      {t.about.degree}
                     </h4>
                     <span className="text-xs font-mono font-bold text-[#FF202B] bg-[#FF202B]/10 px-2.5 py-0.5 rounded-full border border-[#FF202B]/20">
-                      Graduation 2027
+                      {t.about.gradYear}
                     </span>
                   </div>
                   <p className="text-xs text-[#5E6272] mt-0.5 font-medium">
-                    Phetchaburi Rajabhat University (PBRU) • Phetchaburi, Thailand
+                    {t.about.university}
                   </p>
                 </div>
               </div>
@@ -118,7 +99,7 @@ const About = () => {
                 <Calendar size={18} />
               </div>
               <div className="text-xs sm:text-sm font-semibold">
-                <span className="font-extrabold text-[#181A20]">Available for Internship:</span> November 2026 – March 2027 (Full-time)
+                <span className="font-extrabold text-[#181A20]">{t.about.internshipAvailable}</span> {t.about.internshipPeriod}
               </div>
             </div>
           </div>
@@ -127,18 +108,18 @@ const About = () => {
         {/* Right Core Domains Cards (5 cols) */}
         <div className="lg:col-span-5 space-y-3.5">
           <div className="text-xs font-mono uppercase tracking-wider text-[#FF202B] mb-2 font-bold flex items-center gap-2">
-            <span>Primary Focus Areas</span>
+            <span>{t.about.focusAreas}</span>
             <span className="h-px flex-1 bg-[#E8E6DC]"></span>
           </div>
 
-          {highlights.map((item, idx) => (
+          {t.about.domains.map((item, idx) => (
             <div 
               key={idx}
-              className={`bg-gradient-to-r ${item.accent} bg-white rounded-2xl border-2 p-4 sm:p-4.5 shadow-sm hover:shadow-card hover:scale-[1.02] transition-all duration-300`}
+              className={`bg-gradient-to-r ${domainAccents[idx]} bg-white rounded-2xl border-2 p-4 sm:p-4.5 shadow-sm hover:shadow-card hover:scale-[1.02] transition-all duration-300`}
             >
               <div className="flex items-start gap-3.5">
                 <div className="p-2.5 rounded-xl bg-white shadow-sm shrink-0 border border-[#E8E6DC]/60">
-                  {item.icon}
+                  {domainIcons[idx]}
                 </div>
                 <div>
                   <h4 className="text-sm font-bold text-[#181A20] mb-1">

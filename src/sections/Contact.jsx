@@ -5,13 +5,14 @@ import {
   MapPin, 
   FileText, 
   ArrowUpRight, 
-  Calendar,
-  Sparkles,
   Send
 } from 'lucide-react';
 import { GitHubIcon } from '../components/GitHubIcon';
+import { useLanguage } from '../context/LanguageContext';
 
 const Contact = () => {
+  const { t } = useLanguage();
+
   return (
     <section id="contact" className="py-20 px-6 max-w-6xl mx-auto border-t border-[#E8E6DC]">
       
@@ -28,15 +29,15 @@ const Contact = () => {
           <div className="lg:col-span-7 space-y-5">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 border border-white/15 text-xs font-semibold text-[#87FEBC] font-mono">
               <span className="w-2 h-2 rounded-full bg-[#87FEBC] animate-pulse"></span>
-              Internship Window: Nov 2026 – Mar 2027
+              {t.contact.internshipTag}
             </div>
 
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-display font-extrabold tracking-tight leading-tight">
-              Let's connect & build something impactful.
+              {t.contact.title}
             </h2>
 
             <p className="text-sm sm:text-base text-gray-300 leading-relaxed max-w-xl font-normal">
-              Whether you have an internship opportunity, want to discuss software engineering, or explore potential collaborative projects, my inbox is always open.
+              {t.contact.desc}
             </p>
 
             {/* Direct Action Buttons */}
@@ -57,7 +58,7 @@ const Contact = () => {
                 className="inline-flex items-center gap-2 bg-white/10 hover:bg-white/20 border border-white/20 text-white text-xs sm:text-sm font-semibold px-5 py-3 rounded-xl transition-all duration-200"
               >
                 <FileText size={16} />
-                <span>View Full Resume (PDF)</span>
+                <span>{t.contact.viewPdfBtn}</span>
                 <ArrowUpRight size={14} />
               </a>
             </div>
@@ -76,7 +77,7 @@ const Contact = () => {
                     <Mail size={18} />
                   </div>
                   <div>
-                    <div className="text-[11px] font-mono text-gray-400">EMAIL ADDRESS</div>
+                    <div className="text-[11px] font-mono text-gray-400">{t.contact.emailLabel}</div>
                     <div className="text-sm font-bold text-white group-hover:text-[#A0E8E8] transition-colors truncate max-w-[200px] sm:max-w-none">
                       aminta.rungruang@gmail.com
                     </div>
@@ -96,7 +97,7 @@ const Contact = () => {
                     <Phone size={18} />
                   </div>
                   <div>
-                    <div className="text-[11px] font-mono text-gray-400">PHONE NUMBER</div>
+                    <div className="text-[11px] font-mono text-gray-400">{t.contact.phoneLabel}</div>
                     <div className="text-sm font-bold text-white group-hover:text-[#87FEBC] transition-colors">
                       065-652-6330
                     </div>
@@ -118,7 +119,7 @@ const Contact = () => {
                     <GitHubIcon size={18} />
                   </div>
                   <div>
-                    <div className="text-[11px] font-mono text-gray-400">GITHUB REPOSITORIES</div>
+                    <div className="text-[11px] font-mono text-gray-400">{t.contact.githubLabel}</div>
                     <div className="text-sm font-bold text-white group-hover:text-[#FFDD63] transition-colors">
                       github.com/amintarungruang
                     </div>
@@ -133,9 +134,9 @@ const Contact = () => {
                 <MapPin size={18} />
               </div>
               <div>
-                <div className="text-[11px] font-mono text-gray-400">CURRENT RESIDENCE</div>
+                <div className="text-[11px] font-mono text-gray-400">{t.contact.locationLabel}</div>
                 <div className="text-sm font-bold text-white">
-                  Phetchaburi, Thailand
+                  {t.contact.locationVal}
                 </div>
               </div>
             </div>
